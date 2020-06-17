@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="dist/css/requets.css">
+  <style>
+    #button-search-document {
+      width: 70%;
+      float: right;
+    }
+
+    .btnRepnsiveDelFil {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header-content header-elements-md-inline">
+  <div class="page-title d-flex">
+    <h4><i class="fa fa-file mr-2"></i> <span class="font-weight-semibold">Yêu cầu - Danh sách yêu cầu</span>
+    </h4>
+    <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+  </div>
+  <a href="#" class="btn btn-success">Thêm yêu cầu</a>
+</div>
+
+<div class="card-body">
+  <form method="GET">
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <input type="text" placeholder="Nhập nội dung tìm kiếm" class="form-control" name="text_code"  aria-describedby="helpId" placeholder="">
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+
+    <table id="tree-table" class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th class="text-center selectAll" style="width:5%;">
+          <input type="checkbox" class="form-check-input-styled all">
+        </th>
+        <th class="text-center" style="width: 15%">Loại văn bản</th>
+        <th class="text-center" style="width: 15%">Số hiệu văn bản</th>
+        <th class="text-center" style="width: 30%">Danh mục</th>
+        <th class="text-center" style="width: 10%">Trạng thái </th>
+        <th class="text-center" style="width: 15%">Thời gian tải lên</th>
+        <th class="text-center" style="width: 10%">Thao tác</th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <tr>
+        <td class="text-center" style="width: 5%"><input name="ids[]" type="checkbox" class="form-check-input-styled" value="{{ $iDoc['id'] }}"></td>
+        <td class="text-center" style="width: 15%">{{ $iDoc->type['name'] }}</td>
+        <td class="text-center" style="width: 15%"><a href="{{ route('mod_document.admin.get_detail_document',$iDoc['id'])}}"> {{ $iDoc['text_code'] }}</a></td>
+        <td class="text-center" style="width: 30%;word-break: break-all">{{ $iDoc->category['name'] }}</td>
+        <td class="text-center" style="width: 10%">
+
+        </td>
+        <td class="text-center" style="width: 15%"><span data-popup="tooltip" title="{{ $iDoc['created_at'] }}">{{ $iDoc['created_at']}}</span></td>
+        <td class="text-center" style="width: 10%">
+          <a href="{{ route('mod_document.admin.get_edit_document',$iDoc['id']) }}" class="text-warning mr-1" data-popup="tooltip" title="Sửa"><i class="fa fa-edit"></i></a>
+          <a href="javascript:;" onclick="askToDelete(this);return false;" data-href="{{ route('mod_document.admin.get_delete_document',$iDoc['id']) }}" class="text-danger" data-popup="tooltip" title="Xóa"><i class="fas fa-trash-alt"></i></a>
+        </td>
+      </tr>
+
+      </tbody>
+
+    </table>
+
+</div>
+
+
+
+
+</body>
+</html>
