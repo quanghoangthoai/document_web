@@ -9,6 +9,30 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
+  <style>
+    /*right click*/
+    .context-menu ul{
+      z-index: 1000;
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid #CCC;
+      white-space: nowrap;
+      font-family: sans-serif;
+      background: #FFF;
+      color: #333;
+      border-radius: 5px;
+      padding: 0;
+    }
+    /* Each of the items in the list */
+    .context-menu ul li {
+      padding: 8px 12px;
+      cursor: pointer;
+      list-style-type: none;
+    }
+    .context-menu ul li:hover {
+      background-color: #DEF;
+    }
+  </style>
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
@@ -147,7 +171,7 @@
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
+      <div class="container-fluid" oncontextmenu ="event.preventDefault();$('#context-menu').show();$('#context-menu').offset({'top':mouseY,'left':mouseX})">
         <!-- Small boxes (Stat box) -->
         <div class="row" style="float: right" >
         </div>
@@ -199,6 +223,15 @@
           </tbody>
         </table>
       </div><!-- /.container-fluid -->
+      <div class="context-menu" id="context-menu" style="display:none;position:absolute;z-index:99">
+        <ul>
+          <li><a href="#"><i class="fa fa-eye"></i> View</a></li>
+          <li><a href="#"><i class="fa fa-share-alt"></i> Share</a></li>
+          <li><a href="#"><i class="fa fa-trash"></i> Delete</a></li>
+          <li><a href="#"><i class="fa fa-share fa-fw"></i> Move</a></li>
+          <li><a href="#"><i class="fa fa-files-o"></i> Copy</a></li>
+        </ul>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -244,5 +277,20 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script>
+  var mouseX;
+  var mouseY;
+  $(document).mousemove(function(e) {
+    mouseX = e.pageX;
+    mouseY = e.pageY;
+  });
+  $(document).bind("mousedown", function (e) {
+    // If the clicked element is not the menu
+    if (!$(e.target).parents(".context-menu").length > 0) {
+      // Hide it
+      $(".context-menu").hide(100);
+    }
+  });
+</script>
 </body>
 </html>
